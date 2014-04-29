@@ -42,7 +42,7 @@ def adform_cart(context, price, items):
     ADFORM_PM = getattr(settings, 'ADFORM_PM', '')
     ADFORM_ID = getattr(settings, 'ADFORM_ID', '')
 
-    sales = price 
+    sales = str(price).replace(',','.') 
     basketsize = 0
     products = []
 
@@ -84,7 +84,7 @@ def adform_thankyou(context, order):
     ADFORM_PM = getattr(settings, 'ADFORM_PM', '')
     ADFORM_ID = getattr(settings, 'ADFORM_ID', '')
 
-    sales = order.price
+    sales = str(order.price).replace(',','.')
     basketsize = 0
     items = order.items.values()
     order_id = order.number
