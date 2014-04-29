@@ -7,9 +7,9 @@ var _adftrack = {
     id: {{ adform_id }},
     order: {
         products: [{
-            productname: '{{ product.get_name }}',
-            productid: '{{ product.get_id }}',
-            categoryname: '{{ product.parent.name }}',
+            productname: '{{ product_name }}',
+            productid: '{{ product_id }}',
+            categoryname: '{{ parent_name }}',
 	    step: '1'
         }]
     }
