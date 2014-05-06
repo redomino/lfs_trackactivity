@@ -22,10 +22,10 @@ def adform_product_page(context, product):
 
     if product.is_variant:
         product_name = product.get_default_variant().get_name
-        product_id = product.get_default_variant().id
+        product_id = product.get_default_variant().sku.split(' ')[0]
     else:
         product_name = product.get_name
-        product_id = product.id
+        product_id = product.sku.split(' ')[0]
 
     parent_name = product.get_category().name
     return {
@@ -58,7 +58,7 @@ def adform_cart(context, price, items):
         basketsize += cart_item['quantity']
     
     #toglo gli apici per passare al js un dizionario pulito
-    products = str(products).replace("'","")
+    #products = str(products).replace("'","")
 
     return {
             "sales": sales,
@@ -102,7 +102,7 @@ def adform_thankyou(context, order):
         basketsize += item['product_amount']
 
     #toglo gli apici per passare al js un dizionario pulito
-    products = str(products).replace("'","")
+    #products = str(products).replace("'","")
 
     return {
             "order_id": order_id,
