@@ -10,7 +10,7 @@ var _adftrack = {
         sales: '{{ sales }}',
         basketsize: '{{ basketsize }}',
         orderid: '{{ order_id }}',
-        itms: {{ products }}
+        itms: {{ products|safe }}
     }
 };
 (function(){var s=document.createElement('script');s.type='text/javascript';s.async=true;s.src='https://track.adform.net/serving/scripts/trackpoint/async/';var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);})();

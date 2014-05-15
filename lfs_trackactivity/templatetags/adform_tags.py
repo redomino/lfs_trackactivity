@@ -1,7 +1,7 @@
 from django.template import Library
 from lfs.page.models import Page
 from django.conf import settings
-
+import json
 register = Library()
 
 @register.inclusion_tag('adform_master.html', takes_context=True)
@@ -18,7 +18,7 @@ def adform_master(context):
 def adform_product_page(context, product):
     # TODO: to be finished
     ADFORM_PM = getattr(settings, 'ADFORM_PM', '')
-    ADFORM_ID = getattr(settings, 'ADFORM_ID', '')
+    ADFORM_ID = getattr(settings, 'ADFORM_PRODUCTPAGE_ID', '')
 
     if product.is_variant:
         product_name = product.get_default_variant().get_name
@@ -40,7 +40,7 @@ def adform_product_page(context, product):
 def adform_cart(context, price, items):
     # TODO: to be finished
     ADFORM_PM = getattr(settings, 'ADFORM_PM', '')
-    ADFORM_ID = getattr(settings, 'ADFORM_ID', '')
+    ADFORM_ID = getattr(settings, 'ADFORM_CART_ID', '')
 
     sales = str(price).replace(',','.') 
     basketsize = 0
@@ -51,15 +51,13 @@ def adform_cart(context, price, items):
             'productname': cart_item['product'].get_name().encode("utf-8"),
             'productid': cart_item['product'].sku.encode("utf-8"),
             'categoryname': cart_item['product'].get_category().name.encode("utf-8"),
-            'productsales': cart_item['product_price_gross'],
-            'productcount': cart_item['quantity'],
+            'productsales': str(cart_item['product_price_gross']),
+            'productcount': str(cart_item['quantity']),
             'step': '2'
         })
         basketsize += cart_item['quantity']
-    
-    #toglo gli apici per passare al js un dizionario pulito
-    #products = str(products).replace("'","")
-
+   
+    products = json.dumps(products)
     return {
             "sales": sales,
             "products": products,
@@ -72,7 +70,7 @@ def adform_cart(context, price, items):
 def adform_checkout(context):
     # TODO: to be finished
     ADFORM_PM = getattr(settings, 'ADFORM_PM', '')
-    ADFORM_ID = getattr(settings, 'ADFORM_ID', '')
+    ADFORM_ID = getattr(settings, 'ADFORM_PAYMENT_ID', '')
     return {
             "adform_pm": ADFORM_PM,
             "adform_id": ADFORM_ID,
@@ -82,7 +80,7 @@ def adform_checkout(context):
 def adform_thankyou(context, order):
     # TODO: to be finished
     ADFORM_PM = getattr(settings, 'ADFORM_PM', '')
-    ADFORM_ID = getattr(settings, 'ADFORM_ID', '')
+    ADFORM_ID = getattr(settings, 'ADFORM_THANKYOU_ID', '')
 
     sales = str(order.price).replace(',','.')
     basketsize = 0
@@ -95,15 +93,14 @@ def adform_thankyou(context, order):
             'productname': item['product_name'].encode("utf-8"),
             'productid': item['product_sku'].encode("utf-8"),
             'categoryname': '',
-            'productsales': item['product_price_gross'],
-            'productcount': item['product_amount'],
+            'productsales': str(item['product_price_gross']),
+            'productcount': int(item['product_amount']),
             'step': '3'
         })
-        basketsize += item['product_amount']
+        basketsize += int(item['product_amount'])
 
-    #toglo gli apici per passare al js un dizionario pulito
-    #products = str(products).replace("'","")
-
+    products = json.dumps(products)
+   
     return {
             "order_id": order_id,
             "basketsize": basketsize,
