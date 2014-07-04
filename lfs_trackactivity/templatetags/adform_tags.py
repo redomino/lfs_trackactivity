@@ -82,26 +82,27 @@ def adform_thankyou(context, order):
     ADFORM_PM = getattr(settings, 'ADFORM_PM', '')
     ADFORM_ID = getattr(settings, 'ADFORM_THANKYOU_ID', '')
 
-    sales = str(order.price).replace(',','.')
-    basketsize = 0
-    items = order.items.values()
-    order_id = order.number
+    if order:
+        sales = str(order.price).replace(',','.')
+        basketsize = 0
+        items = order.items.values()
+        order_id = order.number
 
-    products = []
-    for item in items:
-        products.append({
-            'productname': item['product_name'].encode("utf-8"),
-            'productid': item['product_sku'].encode("utf-8"),
-            'categoryname': '',
-            'productsales': str(item['product_price_gross']),
-            'productcount': int(item['product_amount']),
-            'step': '3'
-        })
-        basketsize += int(item['product_amount'])
+        products = []
+        for item in items:
+            products.append({
+                'productname': item['product_name'].encode("utf-8"),
+                'productid': item['product_sku'].encode("utf-8"),
+                'categoryname': '',
+                'productsales': str(item['product_price_gross']),
+                'productcount': int(item['product_amount']),
+                'step': '3'
+            })
+            basketsize += int(item['product_amount'])
 
-    products = json.dumps(products)
+        products = json.dumps(products)
    
-    return {
+        return {
             "order_id": order_id,
             "basketsize": basketsize,
             "products": products,
