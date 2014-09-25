@@ -9,9 +9,23 @@ def adform_master(context):
     # TODO: to be finished
     ADFORM_PM = getattr(settings, 'ADFORM_PM', '')
     ADFORM_ID = getattr(settings, 'ADFORM_ID', '')
+    
+    #nelle categorie mostro i espongo tre prodotti
+    #context['category'].get_filtered_products(filters=None, price_filter=None, sorting="price")
+    #itms: [{productid: 'productID1'},{productid: 'productID2'},{productid: 'productID3'}]
+
+    itms = []
+    if context.get('category'):
+        products = context['category'].get_filtered_products(filters=None, price_filter=None, sorting="price")
+        if products:
+            for product in products[:3]:
+                itms.append({'productid':product.sku.split(' ')[0]} )
+
+    itms = json.dumps(itms)
     return {
             "adform_pm": ADFORM_PM,
             "adform_id": ADFORM_ID,
+            "products": itms,
            }
 
 @register.inclusion_tag('adform_product_page.html', takes_context=True)
