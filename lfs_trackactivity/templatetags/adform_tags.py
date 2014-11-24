@@ -19,7 +19,8 @@ def adform_master(context):
         products = context['category'].get_filtered_products(filters=None, price_filter=None, sorting="price")
         if products:
             for product in products[:3]:
-                itms.append({'productid':product.sku.split(' ')[0]} )
+                #itms.append({'productid':product.sku.split(' ')[0]} )
+                itms.append({'productid':product.get_variants()[0].sku} )
 
     itms = json.dumps(itms)
     return {
@@ -36,10 +37,10 @@ def adform_product_page(context, product):
 
     if product.is_variant:
         product_name = product.get_default_variant().get_name
-        product_id = product.get_default_variant().sku.split(' ')[0]
+        product_id = product.get_default_variant().sku
     else:
         product_name = product.get_name
-        product_id = product.sku.split(' ')[0]
+        product_id = product.sku
 
     parent_name = product.get_category().name
     return {
