@@ -1,7 +1,8 @@
-
 <!-- Adform Tracking Code BEGIN -->
 <!-- Point: "Thank You Page (Thank-You Page)" -->
-<script type="text/javascript">
+<script type="text/javascript" src="https://track.adform.net/serving/scripts/trackpoint/"></script>
+<script type="text/javascript" data-cookieconsent="marketing">
+adf.ClickTrack(this,221910,'cotonella|mastertag',{});
 var _adftrack = {
     pm: {{ adform_pm }},
     id: {{ adform_id }},
@@ -10,6 +11,8 @@ var _adftrack = {
         sales: '{{ sales }}',
         basketsize: '{{ basketsize }}',
         orderid: '{{ order_id }}',
+        sv1: '{{ user_email }}',
+        sv2: {{ newcustomer_value }}
         itms: {{ products|safe }}
     }
 };
@@ -17,7 +20,7 @@ var _adftrack = {
 </script>
 <noscript>
     <p style="margin:0;padding:0;border:0;">
-        <img src="https://track.adform.net/Serving/TrackPoint/?pm=221910&amp;lid=4988895" width="1" height="1" alt="" />
+        <img src="https://track.adform.net/Serving/TrackPoint/?pm=221910&ADFPageName=cotonella%7Cthankyoupage&ADFdivider=|" width="1" height="1" alt="" />
     </p>
 </noscript>
 <!-- Adform Tracking Code END -->

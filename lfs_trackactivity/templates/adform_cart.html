@@ -1,12 +1,16 @@
 <!-- Adform Tracking Code BEGIN -->
 <!-- Point: "Basket" -->
-<script type="text/javascript">
+<script type="text/javascript" src="https://track.adform.net/serving/scripts/trackpoint/"></script>
+<script type="text/javascript" data-cookieconsent="marketing">
+adf.ClickTrack(this,221910,'cotonella|mastertag',{});
 var _adftrack = {
     pm: {{ adform_pm }},
-    id: {{ adform_id }},
+    divider: encodeURIComponent('|'),
+    pagename: encodeURIComponent('cotonella|carrello'),
     order: {
-        sales: '{{ sales }}',
-        basketsize: '{{ basketsize }}',
+        sv1: '{{ user_email }}',
+    //    sales: '{{ sales }}',
+    //    basketsize: '{{ basketsize }}',
         itms: {{ products|safe }}
     }
 };
@@ -14,7 +18,7 @@ var _adftrack = {
 </script>
 <noscript>
     <p style="margin:0;padding:0;border:0;">
-        <img src="https://track.adform.net/Serving/TrackPoint/?pm=221910&amp;lid=4988893" width="1" height="1" alt="" />
+        <img src="https://track.adform.net/Serving/TrackPoint/?pm=221910&ADFPageName=cotonella%7Ccarrello&ADFdivider=|" width="1" height="1" alt="" />
     </p>
 </noscript>
 <!-- Adform Tracking Code END -->
